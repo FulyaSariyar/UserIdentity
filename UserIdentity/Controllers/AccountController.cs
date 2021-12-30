@@ -18,6 +18,22 @@ namespace UserIdentity.Controllers
         public AccountController()
         {
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new IdentityDataContext()));
+
+            userManager.PasswordValidator = new CustomPasswordValidator()
+            {
+                RequireDigit = true,
+                RequiredLength = 7,
+                RequireLowercase = true,
+                RequireUppercase = true,
+                RequireNonLetterOrDigit = true
+
+            };
+
+            userManager.UserValidator = new UserValidator<ApplicationUser>(userManager)
+            {
+                RequireUniqueEmail = true,
+                AllowOnlyAlphanumericUserNames = false
+            };
         }
         // GET: Account
         public ActionResult Index()
