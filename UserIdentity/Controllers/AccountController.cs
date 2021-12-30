@@ -45,6 +45,10 @@ namespace UserIdentity.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View("Error", new string[] {"Erişim hakkınız yok!"});
+            }
             ViewBag.returnUrl = returnUrl;
             return View();
         }
@@ -101,6 +105,7 @@ namespace UserIdentity.Controllers
                 var result = userManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
+                    userManager.AddToRole(user.Id, "User");
                     return RedirectToAction("Login");   
                 }
                 else

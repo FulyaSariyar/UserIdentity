@@ -27,7 +27,14 @@
                 <tr>
                     <td>@role.Id</td>
                     <td>@role.Name</td>
-                    <td></td>
+                    <td>
+                        @using (Html.BeginForm("Delete", "RoleAdmin", new { id = role.Id }))
+                        {
+                            <button type="submit" class="btn btn-danger" btn-sm>Delete</button>
+                            @Html.ActionLink("Güncelle", "Edit", new { id = role.Id }, new { @class = "btn btn-primary btn-sm" })
+                        }
+
+                    </td>
                 </tr>
             }
         }
