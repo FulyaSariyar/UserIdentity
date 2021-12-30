@@ -6,8 +6,8 @@ using System.Web;
 
 namespace UserIdentity.Identity
 {
-    public class AplicationRole:IdentityRole
+    public class ApplicationUser:IdentityUser
     {
-        public string Description { get; set; }
+        public string  Name { get; set; }
     }
 }
